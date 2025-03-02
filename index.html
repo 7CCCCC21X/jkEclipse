@@ -6,8 +6,8 @@
     <title>Turbo ETH 余额监控</title>
     <script>
         let lastBalance = null;
-        const apiUrl = "https://api.eclipsescan.xyz/v1/account/tokens?address=CQ8T5eGdvQht7cXt47hg3o5ebHEu35P4QeVHsFJSzYvv";
-        
+        const apiUrl = "/api/balance?address=CQ8T5eGdvQht7cXt47hg3o5ebHEu35P4QeVHsFJSzYvv";
+
         async function fetchBalance() {
             try {
                 const response = await fetch(apiUrl);
@@ -20,11 +20,11 @@
                 console.error("API 请求失败:", error);
             }
         }
-        
+
         function updateUI(balance) {
             const balanceElement = document.getElementById("balance");
             const changeElement = document.getElementById("change");
-            
+
             if (lastBalance !== null && balance !== lastBalance) {
                 const difference = (balance - lastBalance).toFixed(6);
                 balanceElement.style.color = balance > lastBalance ? "green" : "red";
@@ -36,11 +36,11 @@
                 changeElement.textContent = "无变化";
                 changeElement.style.color = "black";
             }
-            
+
             balanceElement.textContent = balance.toFixed(6) + " tETH";
             lastBalance = balance;
         }
-        
+
         setInterval(fetchBalance, 10000); // 每10秒请求一次
         window.onload = fetchBalance;
     </script>
